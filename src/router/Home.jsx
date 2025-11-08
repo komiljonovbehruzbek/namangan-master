@@ -12,19 +12,11 @@ import Map from "../components/Map";
 
 function Home() {
   const { t } = useLanguage(); // Tarjima funksiyasi
-
-  // Dinamik districtlar (6 ta)
-  // const districts = Array(6).fill({
-  //   name: t("district_name"),
-  //   updated: t("last_updated"),
-  // });
-
-
   return (
     <div className="home">
-        <div className="banner">
-          <div className="dark">
-      <div className="container">
+      <div className="banner">
+        <div className="dark">
+          <div className="container">
             <h1 className="dark_h1">{t("banner_title")}</h1>
             <div className="dark_hr"></div>
             <p className="dark_p">{t("banner_text")}</p>
@@ -33,15 +25,13 @@ function Home() {
       </div>
       <div className="container">
         {/* === BANNER === */}
-        
+
 
         <Result />
-        
+
         <Statistika />
 
-        <Map/>
-
-
+        <Map />
 
         <div className="about">
           <div className="about_left">

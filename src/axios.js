@@ -8,17 +8,16 @@ const api = axios.create({
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjIyNjY4LCJpYXQiOjE3NjI2MDgyNjgsImp0aSI6ImVjNDVhNzU0MTU0YjQ4ZWM5MGNmMDNlZjNkNTAzOGU1IiwidXNlcl9pZCI6IjEifQ.qCvSYpI5vxS9dJPmmVvHKz9qrvwtRRNpCV-ODPSQ5qc"
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjU2MjcyLCJpYXQiOjE3NjI2NDE4NzIsImp0aSI6IjdjZWMyNDJiY2NhYTQxZGViMDA3MzI4YmQ5ODVkNjcxIiwidXNlcl9pZCI6IjEifQ.n4AyY_Wqskb9gHTyTk8YkwNOEMM6KhcKQnSFchY49Dw",
   },
 });
 
-// Request interceptor – o'zgarmaydi
 api.interceptors.request.use(
   (config) => config,
   (error) => Promise.reject(error)
 );
 
-// Response interceptor – o'zgarmaydi
 api.interceptors.response.use(
   (response) => response,
   (error) => Promise.reject(error)

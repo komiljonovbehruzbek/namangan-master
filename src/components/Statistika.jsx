@@ -24,32 +24,29 @@ function Statistika() {
     return () => clearInterval(interval);
   }, []);
 
+  // Sonni qisqartirish funksiyasi (Result.jsx dan olingan)
+  const formatNumber = (num) => {
+    if (!num) return "0";
+    const absNum = Math.abs(num);
+    if (absNum >= 1_000_000_000) {
+      return (num / 1_000_000_000).toFixed(1).replace(/\.0$/, "") + " mlrd";
+    }
+    if (absNum >= 1_000_000) {
+      return (num / 1_000_000).toFixed(1).replace(/\.0$/, "") + " mln";
+    }
+    if (absNum >= 1_000) {
+      return (num / 1_000).toFixed(1).replace(/\.0$/, "") + " ming";
+    }
+    return num.toString();
+  };
+
   // API dan statistika yuklash
   useEffect(() => {
     const fetchStatistics = async () => {
       try {
         setIsLoading(true);
-        const response = await api.get("/statistics/golabal/");
-        console.log("API dan kelgan statistika:", response.data);
-
-        const aggregated = {};
-        response.data.forEach((item) => {
-          item.titles.forEach((title) => {
-            aggregated[title] = (aggregated[title] || 0) + item.totalNum;
-          });
-        });
-
-        // Maxsus eksport plan/actual qiymatlari
-        response.data.forEach((item) => {
-          if (item.titles.includes("export_plan")) {
-            aggregated["export_plan"] = item.totalNum;
-          }
-          if (item.titles.includes("export_actual")) {
-            aggregated["export_actual"] = item.totalNum;
-          }
-        });
-
-        setApiData(aggregated);
+        const response = await api.get("/statistics/global/");
+        setApiData(response.data); // to'g'ridan-to'g'ri obyekt
       } catch (error) {
         console.error("Statistika yuklashda xatolik:", error);
         setApiData({});
@@ -61,26 +58,23 @@ function Statistika() {
     fetchStatistics();
   }, []);
 
-  // Statistik kartalar konfiguratsiyasi
+  // TO'G'RI kartalar konfiguratsiyasi
   const statCards = [
-    { key: "small_industrial_zones", apiTitle: "small_industrial_zones", color: "#00d097", translation: "small_industrial_zones" },
-    { key: "internal_capacity", apiTitle: "internal_capacity", color: "#fdc748", translation: "internal_capacity" },
-    { key: "bank_funds", apiTitle: "bank_funds", color: "#15c0e6", translation: "bank_funds" },
-    { key: "export_count", apiTitle: "export", color: "#6d5dd3", translation: "export" },
-    { key: "total_area", apiTitle: "total_area", color: "#15c0e6", translation: "total_area" },
+    { key: "land", apiKey: "land", color: "#00d097", translation: "total_area" }, // hudud
+    { key: "uz_mablagi", apiKey: "uz_mablagi", color: "#fdc748", translation: "own_funds" }, // o'z mablag'i
+    { key: "credit", apiKey: "credit", color: "#15c0e6", translation: "bank_funds" }, // kredit
+    { key: "export_volume_real", apiKey: "export_volume_real", color: "#6d5dd3", translation: "export" }, // eksport real
+    { key: "created_positions", apiKey: "created_positions", color: "#15c0e6", translation: "projects" }, // yaratilgan ish o'rinlari
     {
       key: "export_volume",
-      apiTitle: "export",
       color: "#6d5dd3",
-      translation: "export_volume",
+      translation: "экспорт ҳажми",
       isSpecial: true,
-      planKey: "export_plan",
-      actualKey: "export_actual",
-      specialTitle: "export_volume_title"
+      planKey: "export_volume_planned",
+      actualKey: "export_volume_real",
     },
-    { key: "own_funds", apiTitle: "own_funds", color: "#fdc748", translation: "own_funds" },
-    { key: "projects_count", apiTitle: "projects", color: "#6d5dd3", translation: "projects" },
-    { key: "project_cost", apiTitle: "production", color: "#00d097", translation: "production" },
+    { key: "ozlashtirilgan_mublag", apiKey: "ozlashtirilgan_mublag", color: "#fdc748", translation: "own_funds" }, // o'zlashtirilgan
+    { key: "cost", apiKey: "cost", color: "#00d097", translation: "production" }, // loyiha qiymati
   ];
 
   if (isLoading) {
@@ -105,7 +99,7 @@ function Statistika() {
           {/* Mavjud ish o'rinlari */}
           <div className="work">
             <div className="text">
-              <h2>{(apiData.workplaces ?? 0).toLocaleString()}</h2>
+              <h2>{formatNumber(apiData.ish_urni_real ?? 0)}</h2>
               <span>{t("vacant_jobs")}</span>
             </div>
             <div className="img">
@@ -119,24 +113,18 @@ function Statistika() {
               {card.isSpecial ? (
                 // MAXSUS KART – EKSport HAJMI
                 <div className="export-card">
-                  <h3 className="export-title">{t(card.specialTitle)}</h3>
+                  <h3 className="export-title">{t(card.translation)}</h3>
                   <div className="export-values">
                     <div className="value-item">
                       <span className="badge badge-plan">{t("plan")}</span>
                       <h2 className="value-number">
-                        {(apiData[card.planKey] ?? 0).toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                          maximumFractionDigits: 1,
-                        })}
+                        {formatNumber(apiData[card.planKey] ?? 0)}
                       </h2>
                     </div>
                     <div className="value-item">
                       <span className="badge badge-actual">{t("actual")}</span>
                       <h2 className="value-number">
-                        {(apiData[card.actualKey] ?? 0).toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                          maximumFractionDigits: 1,
-                        })}
+                        {formatNumber(apiData[card.actualKey] ?? 0)}
                       </h2>
                     </div>
                   </div>
@@ -145,7 +133,7 @@ function Statistika() {
                 // ODDIY KARTALAR
                 <div className="carddd">
                   <FaRegFolderOpen color={card.color} className="icon" id="ikonka" />
-                  <h2>{(apiData[card.apiTitle] ?? 0).toLocaleString()}</h2>
+                  <h2>{formatNumber(apiData[card.apiKey] ?? 0)}</h2>
                   <span>{t(card.translation)}</span>
                 </div>
               )}
@@ -154,7 +142,7 @@ function Statistika() {
 
           {/* IJARA — faqat admin uchun */}
           {isAdmin && (
-            <Link className="linkk" to="/add">
+            <Link className="linkk" to="/uniquedit">
               <div className="ijara">
                 <FaRegFolderOpen color="#6d5dd3" className="icon" />
                 <h2>{t("Ижара") || "Ijara"}</h2>

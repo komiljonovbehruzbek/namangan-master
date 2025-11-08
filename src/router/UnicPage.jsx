@@ -1,15 +1,14 @@
-// src/pages/UnicPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Page.css";
 import { useLanguage } from "../context/LanguageContext";
-import DefoultImg from '../assets/rayon__img.png';
 import Result from '../components/Result';
 import Statistika from '../components/Statistika';
+import { FaTrashAlt } from "react-icons/fa";
 
 const UnicPage = () => {
-  const { location: urlLocation } = useParams();
+  const { location } = useParams();
   const navigate = useNavigate();
   const [mchjs, setMchjs] = useState([]);
   const [villageData, setVillageData] = useState(null);
@@ -18,9 +17,11 @@ const UnicPage = () => {
   const [error, setError] = useState(null);
   const { t } = useLanguage();
 
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
   useEffect(() => {
     const fetchMchjs = async () => {
-      if (!urlLocation) {
+      if (!location) {
         setError("Qishloq nomi topilmadi");
         setLoading(false);
         return;
@@ -30,34 +31,23 @@ const UnicPage = () => {
         setLoading(true);
         setError(null);
 
-        // URL parametrini to'g'ri formatlash
-        const formattedLocation = urlLocation
-          .split('-')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-          .join(' ');
+        let formattedLocation = location.replace(/-/g, ' ');
+        formattedLocation = formattedLocation.charAt(0).toUpperCase() + formattedLocation.slice(1);
 
-        console.log("So'ralayotgan qishloq:", formattedLocation);
-
-        // TO'G'RI API ENDPOINT
-         const res = await axios.get(
-          `https://compounds-spas-send-copyrights.trycloudflare.com/api/villages/view-mchj/?name=${encodeURIComponent(formattedLocation)}`,
+        const res = await axios.get(
+          `https://qwertyuiop999.pythonanywhere.com/api/villages/view-mchj/?name=${encodeURIComponent(formattedLocation)}`,
           {
-            "headers": {
-              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjA4ODQ0LCJpYXQiOjE3NjI1OTQ0NDQsImp0aSI6IjUyYWFhNDFhOWUzYTQ1MGQ5NTBlYzZlZDEyZDkyZDU4IiwidXNlcl9pZCI6IjEifQ.iCeq2QAp5l7B6FeQ7t_qV3UXA7LYihQ0valTjuNRM_U"
+            headers: {
+              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjU2MjcyLCJpYXQiOjE3NjI2NDE4NzIsImp0aSI6IjdjZWMyNDJiY2NhYTQxZGViMDA3MzI4YmQ5ODVkNjcxIiwidXNlcl9pZCI6IjEifQ.n4AyY_Wqskb9gHTyTk8YkwNOEMM6KhcKQnSFchY49Dw"
             }
           }
         );
 
-        console.log("API javobi:", res.data);
-
-        // Ma'lumotlarni tekshirish
         if (!res.data || !Array.isArray(res.data)) {
           throw new Error("API dan to'g'ri formatda ma'lumot olinmadi");
         }
 
         const dataArray = res.data;
-        console.log("Olingan MChJlar:", dataArray);
-
         if (dataArray.length === 0) {
           setError(`${formattedLocation} qishlog'i uchun MChJ topilmadi`);
         } else {
@@ -67,24 +57,18 @@ const UnicPage = () => {
             totalMchj: dataArray.length
           });
 
-          // Tuman nomini olish (birinchi MChJ dan olamiz)
           const firstItemDistrict = dataArray[0]?.district;
           if (firstItemDistrict) {
             const formattedDistrict = firstItemDistrict.toLowerCase().replace(/ /g, '-');
             setDistrict(formattedDistrict);
-          } else {
-            setDistrict('');
           }
         }
-
       } catch (err) {
         console.error("Xato:", err);
-        if (err.response) {
-          if (err.response.status === 404) {
-            setError(`"${urlLocation}" qishlog'i topilmadi`);
-          } else {
-            setError(`Server xatosi: ${err.response.status}`);
-          }
+        if (err.response?.status === 404) {
+          setError(`"${location}" qishlog'i topilmadi`);
+        } else if (err.response) {
+          setError(`Server xatosi: ${err.response.status}`);
         } else if (err.request) {
           setError("Serverga ulanib bo'lmadi. Internet aloqasini tekshiring.");
         } else {
@@ -96,9 +80,32 @@ const UnicPage = () => {
     };
 
     fetchMchjs();
-  }, [urlLocation]);
+  }, [location]);
 
-  // Orqaga qaytish
+  const handleDelete = async (id) => {
+    if (!window.confirm("Bu MChJni o'chirishni xohlaysizmi?")) return;
+
+    try {
+      await axios.delete(
+        `https://qwertyuiop999.pythonanywhere.com/api/villages/delete-mchj/${id}/`,
+        {
+          headers: {
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjU2MjcyLCJpYXQiOjE3NjI2NDE4NzIsImp0aSI6IjdjZWMyNDJiY2NhYTQxZGViMDA3MzI4YmQ5ODVkNjcxIiwidXNlcl9pZCI6IjEifQ.n4AyY_Wqskb9gHTyTk8YkwNOEMM6KhcKQnSFchY49Dw"
+          }
+        }
+      );
+
+      setMchjs(prev => prev.filter(item => item._id !== id));
+      setVillageData(prev => ({
+        ...prev,
+        totalMchj: prev.totalMchj - 1
+      }));
+    } catch (err) {
+      console.error("O'chirishda xato:", err);
+      alert("MChJni o'chirishda xato yuz berdi");
+    }
+  };
+
   const handleBack = () => {
     if (district) {
       navigate(`/district/${district}`);
@@ -107,12 +114,10 @@ const UnicPage = () => {
     }
   };
 
-  // Bosh sahifaga qaytish
   const handleHome = () => {
     navigate('/');
   };
 
-  // Loading komponenti
   if (loading) {
     return (
       <div className="container" style={{ textAlign: 'center', padding: '40px' }}>
@@ -122,10 +127,9 @@ const UnicPage = () => {
     );
   }
 
-  // Error komponenti
   if (error) {
     return (
-      <div className="container" style={{ textAlign: 'center', padding: '40px' }}>
+      <div className="container" style={{ textAlign: 'center', padding: '40px' }} >
         <div style={{ color: "#d32f2f", marginBottom: "20px" }}>
           <h3>Xato yuz berdi</h3>
           <p>{error}</p>
@@ -162,7 +166,6 @@ const UnicPage = () => {
     <div className="container">
       <Result data={villageData} type="village" />
       <Statistika data={villageData} />
-
       <div className='swiper_all'>
         <div className="header-flex" style={{ marginBottom: '20px' }}>
           <h1 className='swiper_h1'>
@@ -170,19 +173,10 @@ const UnicPage = () => {
           </h1>
           <div style={{ display: "flex", gap: "10px" }}>
             {district && (
-              <button onClick={handleBack} className="back-link" style={{
-                border: "none",
-                cursor: "pointer"
-              }}>
+              <button onClick={handleBack} className="back-link">
                 Tumanga qaytish
               </button>
             )}
-            <button onClick={handleHome} className="back-link" style={{
-              border: "none",
-              cursor: "pointer"
-            }}>
-              Bosh sahifaga
-            </button>
           </div>
         </div>
 
@@ -204,7 +198,17 @@ const UnicPage = () => {
               <div key={item._id || index} className='swiper_slide'>
                 <div className='swiper_hr'></div>
                 <div className='swiper_flex unicorn_slide'>
-                  <div className="swiper_text">
+                  <div
+                    className="swiper_text"
+                    onClick={() => {
+                      if (item._id) {
+                        navigate(`/uniquedit/${item._id}`);
+                      } else {
+                        alert("MChJ ID si topilmadi!");
+                      }
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <h2>{item.title || item.name || "Noma'lum MChJ"}</h2>
                     <h6>{item.desc || item.description || "Izoh yo'q"}</h6>
                     <p style={{ color: '#666', fontSize: '14px', marginTop: '8px' }}>
@@ -212,23 +216,30 @@ const UnicPage = () => {
                       {item.location ? ` | Qishloq: ${item.location}` : ''}
                     </p>
                   </div>
-                  <div className="swiper_edit">
-                    <div className="swiper_edit-img">
-                      <img
-                        src={item.image || DefoultImg}
-                        alt={item.title || "MChJ"}
-                        onError={(e) => {
-                          e.target.src = DefoultImg;
-                        }}
+
+                  {isAdmin && (
+                    <div className="swiper_edit" style={{ position: 'relative' }}>
+                      <button
+                        onClick={() => handleDelete(item._id)}
                         style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                          borderRadius: "8px"
+                          background: 'rgba(220, 53, 69, 0.9)',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '50%',
+                          width: '36px',
+                          height: '36px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                          transition: 'all 0.2s'
                         }}
-                      />
+                      >
+                        <FaTrashAlt size={16} />
+                      </button>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             ))}

@@ -22,7 +22,8 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<ArticlePage />} />
           <Route path='/uniquedit' element={<UniqueEdit />} />
-          <Route path='/add' element={<ProfileForm />} />
+          <Route path='/uniquedit/:id' element={<UniqueEdit />} />
+          {/* <Route path='/add' element={<ProfileForm />} /> */}
           <Route path='/edit' element={<VacanciesTable />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/district/:district' element={<DistrictVillages />} /> {/* Tuman -> qishloqlar */}

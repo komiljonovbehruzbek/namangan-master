@@ -37,8 +37,8 @@ const DistrictVillages = () => {
     }
   }, []);
 
-  const getSectionOrder = (title) => ({ 'workplaces': 1, 'export': 2, 'production': 3 }[title] || 0);
-  const getSectionColor = (title) => ({ 'workplaces': '#3F8CFF', 'export': '#9C27B0', 'production': '#4CAF50' }[title] || '#3F8CFF');
+  // const getSectionOrder = (title) => ({ 'workplaces': 1, 'export': 2, 'production': 3 }[title] || 0);
+  // const getSectionColor = (title) => ({ 'workplaces': '#3F8CFF', 'export': '#9C27B0', 'production': '#4CAF50' }[title] || '#3F8CFF');
 
   // Qishloqlarni olish
   useEffect(() => {
@@ -63,7 +63,7 @@ const DistrictVillages = () => {
           {
             headers: {
               Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjIyNjY4LCJpYXQiOjE3NjI2MDgyNjgsImp0aSI6ImVjNDVhNzU0MTU0YjQ4ZWM5MGNmMDNlZjNkNTAzOGU1IiwidXNlcl9pZCI6IjEifQ.qCvSYpI5vxS9dJPmmVvHKz9qrvwtRRNpCV-ODPSQ5qc",
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjU2MjcyLCJpYXQiOjE3NjI2NDE4NzIsImp0aSI6IjdjZWMyNDJiY2NhYTQxZGViMDA3MzI4YmQ5ODVkNjcxIiwidXNlcl9pZCI6IjEifQ.n4AyY_Wqskb9gHTyTk8YkwNOEMM6KhcKQnSFchY49Dw",
             },
           }
         );
@@ -379,9 +379,6 @@ const DistrictVillages = () => {
             {districtData?.district || district?.replace(/-/g, " ") || "Tuman"} qishloqlari (
             {qishloqlar.length} ta)
           </h1>
-          <button onClick={handleBack} className="back-link" style={{ border: "none", cursor: "pointer" }}>
-            {t("back") || "Orqaga"}
-          </button>
         </div>
 
         {qishloqlar.length === 0 ? (
