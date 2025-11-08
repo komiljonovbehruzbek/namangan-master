@@ -1,0 +1,2087 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+.statistika {
+  background-color: #f7fafc;
+  padding: 20px 0;
+}
+
+.title {
+  width: 100%;
+  max-width: 600px;
+  font-family: Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 120%;
+  text-align: center;
+  margin: 0 auto 30px;
+}
+
+/* --- GRID asosiy tuzilma --- */
+.pages {
+  display: grid;
+  grid-template-columns: repeat(5, 240px);
+  grid-auto-rows: 175px;
+  gap: 40px;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+/* --- Asosiy ish o‘rni --- */
+.work {
+  grid-column: span 3;
+  height: 175px;
+  background-color: #edf4fc;
+  border-radius: 20px;
+  box-shadow: 0 3px 14px #0000001A;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.text {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+}
+
+.img {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.img img {
+  height: 100%;
+  object-fit: contain;
+}
+
+/* --- Kichik kartalar (page & ijara) --- */
+.page,
+.ijara {
+  width: 248px;
+  height: 175px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 3px 14px #0000001A;
+  padding: 25px;
+  cursor: pointer;
+  gap: 15px;
+}
+
+.ijara {
+  filter: opacity(0.8);
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+/* --- Umumiy matn stillari --- */
+.icon {
+  font-size: 38px;
+}
+
+.page h2,
+.text h2,
+.ijara h2 {
+  font-family: Roboto, sans-serif;
+  color: #182640;
+  font-weight: 500;
+  font-size: 32px;
+}
+
+.page span,
+.text span,
+.ijara span {
+  font-family: Roboto, sans-serif;
+  color: #182640;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+/* ======================
+   📱 RESPONSIVE DIZAYN
+   ====================== */
+
+/* 🧩 1200px dan kichik ekranlarda */
+@media (max-width: 1367px) {
+  .pages {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+  }
+
+  .work {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 1266px) {
+  .pages {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .work {
+    grid-column: span 2;
+  }
+}
+@media (max-width: 1025px) {
+  .pages {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .work {
+    grid-column: span 2;
+  }
+}
+/* 🧩 992px dan kichik ekranlarda (planshet) */
+@media (max-width: 992px) {
+  .pages {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+
+  .work {
+    grid-column: span 3;
+  }
+
+  .page,
+  .ijara {
+    width: 100%;
+  }
+}
+
+/* 🧩 768px dan kichik (katta telefon yoki kichik planshet) */
+@media (max-width: 768px) {
+  .pages {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .work {
+    grid-column: span 2;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .text,
+  .img {
+    width: 100%;
+    text-align: center;
+  }
+
+  .img img {
+    max-height: 80px;
+    width: auto;
+  }
+
+  .page,
+  .ijara {
+    padding: 20px;
+    gap: 10px;
+  }
+
+  .page h2,
+  .text h2 {
+    font-size: 26px;
+  }
+}
+
+/* 🧩 480px dan kichik (telefon) */
+@media (max-width: 480px) {
+  .pages {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .work {
+    grid-column: span 1;
+  }
+
+  .page,
+  .ijara {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .page h2,
+  .text h2 {
+    font-size: 22px;
+  }
+
+  .page span,
+  .text span {
+    font-size: 13px;
+  }
+  
+}
+
+
+@media screen and (max-width:550px) {
+  .page .icon{
+    font-size: 32px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.navbar {
+  width: 100%;
+  height: 90px;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 100;
+}
+
+.nav {
+  /* width: 90%; */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ✅ Logo joyi buzilmasligi uchun */
+.nav_logo {
+  flex: 0 0 auto;
+  height: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10px;
+}
+
+.nav_logo img {
+  height: 100%;
+  /* o‘z nisbatini saqlaydi */
+  width: 100%;
+  object-fit: contain;
+  border: none;
+  margin-top: -40px;
+}
+
+/* markaziy bo‘lim */
+.nav_center {
+  flex: 1;
+  height: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav_center_ul {
+  display: flex;
+  list-style: none;
+  font-weight: 100;
+  color: gray;
+  font-size: 18px;
+  gap: 30px;
+  /* border: 1px solid black; */
+  padding: 0;
+  margin: 0;
+}
+
+.nav_center_ul li {
+  cursor: pointer;
+}
+
+/* .nav_center_ul li:hover {
+    color: black;
+} */
+
+/* === Language Selector === */
+.nav_lan {
+  flex: 0 0 auto;
+  height: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
+/* Asosiy til tanlash tugmasi */
+.lang-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  /* border: 1px solid #ddd; */
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.2s ease;
+  height: 50px;
+}
+
+.lang-selector:hover {
+  background-color: #f2f2f2;
+}
+
+/* Bayroq */
+.flag-icon {
+  width: 22px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+/* Kod */
+.lang-code {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Arrow */
+.arrow {
+  font-size: 10px;
+  color: #555;
+  transition: transform 0.2s ease;
+}
+
+.arrow.open {
+  transform: rotate(180deg);
+}
+
+.arrow_i {
+  font-size: 25px;
+}
+
+/* Dropdown */
+.lang-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: white;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 98px;
+  z-index: 100;
+  overflow: hidden;
+  animation: fadeIn 0.2s ease;
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.lang-option:hover {
+  background: #f5f5f5;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================= */
+/* 📱 RESPONSIVE DESIGN */
+/* ============================= */
+
+/* Planshet (≤ 1024px) */
+@media (max-width: 1024px) {
+  .nav_contanier {
+    width: 90%;
+  }
+
+  .nav_center_ul {
+    gap: 20px;
+    font-size: 16px;
+  }
+
+  .lang-dropdown {
+    top: 50px;
+    width: 95px;
+  }
+
+  .lang-selector {
+    height: 45px;
+    padding: 5px 8px;
+  }
+
+  .nav_logo img {
+    height: 60%;
+  }
+}
+
+/* Katta telefon / kichik planshet (≤ 768px) */
+@media (max-width: 768px) {
+  .navbar {
+    height: 80px;
+  }
+
+  .nav_contanier {
+    width: 95%;
+  }
+
+  .lang-dropdown {
+    top: 50px;
+    width: 95px;
+  }
+
+  .nav_logo img {
+    height: 55%;
+    margin-top: -20px;
+  }
+
+  .nav_center {
+    display: none;
+    /* Mobilda menyu yashiriladi */
+  }
+
+  .nav_lan {
+    border: none;
+  }
+}
+
+/* Kichik telefon (≤ 480px) */
+@media (max-width: 480px) {
+  .navbar {
+    height: 70px;
+  }
+
+  .lang-selector {
+    gap: 4px;
+    padding: 4px 6px;
+    height: 40px;
+  }
+
+  /* .lang-code {
+        display: none;
+    } */
+
+  .arrow_i {
+    font-size: 20px;
+  }
+
+  .nav_logo img {
+    height: 55%;
+    margin-top: -20px;
+  }
+
+  .flag-icon {
+    width: 20px;
+    height: 14px;
+  }
+
+  .lang-dropdown {
+    top: 50px;
+    width: 80px;
+  }
+
+  .nav_logo img {
+    height: 50%;
+  }
+}
+
+/* ====Footer==== */
+
+
+/* ====Footer==== */
+
+
+.footer {
+  position: relative;
+  width: 100%;
+  background: url("../assets/773dd70184c5235d1bb423e877166982fdfcc86f.jpg") center/cover no-repeat;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-overlay {
+  background-color: #2727278c;
+  width: 100%;
+  height: 100%;
+  padding: 80px 30px;
+}
+.footer-overlay2 {
+  background-color: #2727278c;
+  width: 100%;
+  height: auto;
+  padding: 20px 50px;
+}
+
+.footer-container {
+  width: 1400px;
+  max-width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.3); */
+  padding-bottom: 30px;
+}
+
+/* === Har bir ustun === */
+.footer-box {
+  width: 30%;
+  padding: 10px 20px;
+  border-left: 1px solid #fff;
+}
+
+/* .footer-box:first-child {
+  border-left: none;
+} */
+
+.footer-box h3 {
+  font-size: 23px;
+  margin-bottom: 15px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.footer-box p {
+  font-size: 16px;
+  margin: 6px 0;
+  color: #ddd;
+}
+
+.footer-box p span {
+  color: #f3b23a;
+  font-weight: 500;
+}
+
+.footer-box .closed {
+  color: #ffae00;
+}
+
+/* === Pastki qism === */
+.footer-bottom {
+  width: 1200px;
+  max-width: 95%;
+  margin: 25px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #fff;
+  /* border-top: 1px solid rgba(255, 255, 255, 0.2); */
+  /* padding-top: 10px; */
+}
+
+/* ============================= */
+/* 📱 RESPONSIVE DESIGN */
+/* ============================= */
+
+/* Planshet (≤ 1024px) */
+@media (max-width: 1024px) {
+  .footer-container {
+    width: 90%;
+  }
+
+  .footer-box {
+    width: 32%;
+    padding: 10px;
+  }
+
+  .footer-box h3 {
+    font-size: 17px;
+  }
+
+  .footer-box p {
+    font-size: 13px;
+  }
+}
+
+/* Kichik planshet (≤ 768px) */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .footer-box {
+    width: 100%;
+    border-left: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 15px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+}
+
+/* Telefon (≤ 480px) */
+@media (max-width: 480px) {
+  .footer-overlay {
+    padding: 40px 0 20px;
+  }
+
+  .footer-box h3 {
+    font-size: 16px;
+  }
+
+  .footer-box p {
+    font-size: 12px;
+  }
+
+  .footer-bottom {
+    font-size: 11px;
+  }
+}
+
+/* ====Add Product==== */
+
+.profile-page {
+  width: 100%;
+  padding: 40px 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  font-family: "Poppins", sans-serif;
+  color: #1a1a1a;
+}
+
+/* === FOTO YUKLASH === */
+.photo-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.photo-box {
+  width: 260px;
+  height: 180px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.upload-icon {
+  font-size: 30px;
+  color: #9ca3af;
+}
+
+.upload-text {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.upload-types {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.upload-btn {
+  margin-top: 8px;
+  background: #2563eb;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.edit1-btn {
+  align-self: flex-end;
+  background: #2563eb;
+  /* width: 50%;
+  height: 100%; */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* === FORMA QISMI === */
+.form-section {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.form-section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px 30px;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-item label {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.form-item input {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  outline: none;
+  color: #111827;
+  transition: 0.2s;
+}
+
+.form-item input:focus {
+  border-color: #2563eb;
+}
+
+
+/* === Pastdagi bloklar === */
+.form-section-bottom {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.bottom-box h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.double-inputs {
+  display: flex;
+  gap: 15px;
+}
+
+.double-inputs label {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.double-inputs input {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.quad-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quad-inputs input {
+  flex: 1;
+  min-width: 130px;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+/* ===================== */
+/* 📱 MEDIA QUERIES */
+/* ===================== */
+
+@media (max-width: 1024px) {
+  .form-grid {
+    gap: 12px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .photo-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .edit1-btn {
+    align-self: flex-start;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-section-bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .upload-btn {
+    font-size: 12px;
+  }
+
+  .form-section {
+    padding: 15px 20px;
+  }
+
+  .form-item input {
+    font-size: 12px;
+  }
+}
+
+
+
+
+/* ====Edit==== */
+
+
+.vacancies-section {
+  width: 100%;
+  padding: 30px 5%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", sans-serif;
+}
+
+.vacancy-header {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 10px;
+}
+
+.vacancy-scroll {
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* SCROLLBAR CUSTOM */
+.vacancy-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.vacancy-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 8px;
+}
+
+.vacancy-scroll::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+.vacancy-box {
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  margin-bottom: 25px;
+  padding: 10px 10px 15px 10px;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* TABLE DESIGN */
+.vacancy-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.vacancy-table thead th {
+  background: #f9fafb;
+  font-weight: 600;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.vacancy-table tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.vacancy-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ACTION ICONS */
+.table-actions {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  height: 40px;
+  /* background-color: #000; */
+  gap: 8px;
+}
+
+.table-actions .edit-btn {
+  color: #000;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 25px;
+
+}
+
+.table-actions .delete-btn {
+  color: #000;
+  cursor: pointer;
+  transition: 0.2s;
+  /* width: 50%; */
+  /* height: 70%; */
+  font-size: 23px;
+}
+
+.table-actions .edit-btn:hover {
+  color: #1d4ed8;
+}
+
+.table-actions .delete-btn:hover {
+  color: #dc2626;
+}
+
+/* PAGINATION */
+.table-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #475569;
+  margin-top: 10px;
+}
+
+.pagination-controls button {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pagination-controls button:hover {
+  background: #f1f5f9;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 992px) {
+  .vacancy-table {
+    font-size: 13px;
+  }
+
+  .vacancy-scroll {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .vacancies-section {
+    padding: 20px;
+  }
+
+  .vacancy-header {
+    text-align: center;
+  }
+
+  .vacancy-table th,
+  .vacancy-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+
+
+  .table-pagination {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .vacancy-box {
+    padding: 8px;
+  }
+
+  .vacancy-table th,
+  .vacancy-table td {
+    font-size: 11px;
+    padding: 6px;
+  }
+
+  .table-actions .edit-btn {
+  color: #000;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 18px;
+
+}
+
+.table-actions .delete-btn {
+  color: #000;
+  cursor: pointer;
+  transition: 0.2s;
+  /* width: 50%; */
+  /* height: 70%; */
+  font-size: 18px;
+}
+
+  .table-actions {
+    top: 6px;
+    right: 8px;
+  }
+
+  .table-pagination {
+    font-size: 11px;
+  }
+}
+
+
+
+
+/* ===о нас=== */
+
+
+.article-container {
+  width: 100%;
+  max-width: 1390px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  font-family: "Inter", sans-serif;
+  color: #1f2937;
+  line-height: 1.7;
+  /* Scrollni o‘chirish uchun max-height va overflow-y olib tashlandi */
+  border-radius: 10px;
+  /* box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); */
+}
+
+/* SCROLLBAR (kerak bo‘lmasa, butunlay o‘chirishingiz mumkin) */
+.article-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* HEADINGS */
+.article-title {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+  margin-bottom: 25px;
+  color: #0f172a;
+}
+
+.article-content h3 {
+  margin-top: 25px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #111827;
+  border-left: 3px solid #3b82f6;
+  padding-left: 10px;
+}
+
+.article-content p {
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.article-content ul {
+  margin: 10px 0 20px 20px;
+  padding-left: 10px;
+}
+
+.article-content ul li {
+  margin-bottom: 6px;
+  list-style: disc;
+}
+
+.article-sign {
+  margin-top: 30px;
+  text-align: right;
+  color: #334155;
+  font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .article-container {
+    padding: 25px 15px;
+  }
+
+  .article-title {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .article-content h3 {
+    font-size: 16px;
+  }
+
+  .article-sign {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-container {
+    padding: 20px 12px;
+  }
+
+  .article-title {
+    font-size: 17px;
+  }
+
+  .article-content {
+    font-size: 14px;
+  }
+}
+.nav_bars {
+  width: 30px;
+  height: 30px;
+  background-color: dodgerblue;
+  border-radius: 7px;
+  display: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #fff;
+}
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav_center {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #eee;
+    padding: 15px 0;
+  }
+
+  .nav_center.open {
+    display: block;
+  }
+
+  .nav_contanier{
+    width: 95%;
+  }
+
+  .nav_lan {
+    position: relative;
+    /* border: 1px solid black; */
+    /* margin-left: 380px; */
+    /* justify-content: ; */
+    right: 10px;
+  }
+
+  .nav_center_ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav_bars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+}
+
+
+
+
+.preview-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.save-button-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.save-btn {
+  background: #f3b23a;
+  color: white;
+  padding: 12px 40px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.save-btn:hover {
+  background: #e09f1f;
+}
+
+
+
+
+
+
+
+
+
+
+/* Modal stillari */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 900px;
+  max-height: 100vh;
+  width: 100%;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.modal-close {
+  font-size: 24px;
+  color: #999;
+}
+
+.modal-close:hover {
+  color: #ff0000;
+}
+
+.modal-form-section .form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.modal-form-section .form-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-form-section input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-top: 5px;
+}
+
+.photo-section {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.modal-buttons button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 1000px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.close-btn:hover { color: #000; }
+
+.modal-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.cancel-btn {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.save-btn {
+  background: #007bff;
+  color: white;
+}
+
+.save-btn:hover { background: #0056b3; }
+
+
+
+
+
+/* ============================= */
+/* 📱 Responsive Design for VacanciesTable */
+/* ============================= */
+
+/* 1200px dan kichik ekranlar (desktop kichrayganda) */
+@media (max-width: 1200px) {
+  .vacancies-section {
+    padding: 0 15px;
+  }
+
+  .vacancy-table th,
+  .vacancy-table td {
+    font-size: 15px;
+    padding: 8px;
+  }
+
+  .modal-content {
+    max-width: 900px;
+    width: 90%;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* 992px dan kichik — planshet */
+@media (max-width: 992px) {
+  .vacancy-table {
+    font-size: 14px;
+  }
+
+  .vacancy-box {
+    overflow-x: auto;
+  }
+
+  .vacancy-table th,
+  .vacancy-table td {
+    padding: 6px 10px;
+  }
+
+  .modal-content {
+    width: 95%;
+    max-width: 700px;
+    padding: 15px;
+  }
+
+  .photo-box {
+    height: 200px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modal-buttons button {
+    width: 100%;
+    height: 45px;
+    font-size: 15px;
+  }
+}
+
+/* 768px dan kichik — katta telefonlar va kichik planshetlar */
+@media (max-width: 768px) {
+  .vacancies-section {
+    padding: 10px;
+  }
+
+  .vacancy-header {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .vacancy-table th,
+  .vacancy-table td {
+    font-size: 13px;
+    padding: 6px;
+  }
+
+  .table-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 8px;
+  }
+
+  .modal-content {
+    width: 95%;
+    max-height: 85vh;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .photo-box {
+    height: 180px;
+  }
+
+  .preview-image {
+    max-height: 150px;
+  }
+
+  .modal-header h3 {
+    font-size: 18px;
+  }
+
+  .form-section {
+    padding: 0 5px;
+  }
+
+  .bottom-box h4 {
+    font-size: 15px;
+  }
+}
+
+/* 576px dan kichik — telefon */
+@media (max-width: 576px) {
+  .vacancy-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .vacancy-scroll {
+    padding-bottom: 10px;
+  }
+
+  .vacancy-box {
+    margin-bottom: 20px;
+  }
+
+  .modal-overlay {
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+
+  .modal-content {
+    width: 95%;
+    height: auto;
+    max-height: 90vh;
+    padding: 10px;
+  }
+
+  .photo-box {
+    height: 160px;
+  }
+
+  .modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .modal-header h3 {
+    font-size: 16px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .form-item label {
+    font-size: 13px;
+  }
+
+  .form-item input {
+    font-size: 14px;
+    height: 35px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-buttons button {
+    width: 100%;
+    font-size: 14px;
+    height: 42px;
+  }
+
+  .pagination-controls button {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+}
+
+/* Juda kichik telefonlar (max-width: 400px) */
+@media (max-width: 400px) {
+  .vacancy-header {
+    font-size: 18px;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 8px;
+  }
+
+  .modal-header h3 {
+    font-size: 15px;
+  }
+
+  .modal-buttons button {
+    font-size: 13px;
+    height: 40px;
+  }
+
+  .form-item input {
+    font-size: 13px;
+  }
+
+  .photo-box {
+    height: 140px;
+  }
+
+  .preview-image {
+    max-height: 120px;
+  }
+}
+
+/* ============================= */
+/* 📱 End Responsive Design       */
+/* ============================= */
+
+/* ============================= */
+/* NAVBAR ASOSIY STIL */
+/* ============================= */
+.navbar {
+  width: 100%;
+  height: 90px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+}
+
+.nav_contanier {
+  width: 87%;
+  max-width: 100%;
+  height: 100%;
+  margin: auto;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* LOGO */
+.nav_logo {
+  width: 150px;
+  /* border: 1px solid black; */
+  /* flex: 0 0 auto; */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.nav_icon{
+  display: flex;
+  align-items: center;
+}
+
+.nav_logo img {
+  height: 90%;
+  width: 100%;
+  object-fit: contain;
+  margin-top: -25px;
+}
+
+/* MARKAZIY MENYU */
+.nav_center {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav_center_ul {
+  display: flex;
+  list-style: none;
+  font-weight: 100;
+  color: gray;
+  font-size: 18px;
+  gap: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav_center_ul li {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav_center_ul li:hover {
+  color: #000;
+}
+
+.nav_center_ul .link {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  padding: 8px 0;
+}
+
+/* TIL TANLASH */
+.nav_lan {
+  flex: 0 0 auto;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
+.lang-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.2s ease;
+  height: 50px;
+  min-width: 80px;
+}
+
+.lang-selector:hover {
+  background-color: #f2f2f2;
+}
+
+.flag-icon {
+  width: 22px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.lang-code {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.arrow_i {
+  font-size: 25px;
+  color: #555;
+  transition: transform 0.3s ease;
+}
+
+.arrow_i.open {
+  transform: rotate(180deg);
+}
+
+/* DROPDOWN */
+.lang-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: white;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 98px;
+  z-index: 100;
+  overflow: hidden;
+  animation: fadeIn 0.2s ease;
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.lang-option:hover {
+  background: #f5f5f5;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* HAMBURGER TUGMASI */
+.nav_bars {
+  width: 40px;
+  height: 40px;
+  background-color: dodgerblue;
+  border-radius: 8px;
+  display: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.nav_bars:hover {
+  background-color: #1d8cf8;
+}
+
+/* ============================= */
+/* RESPONSIVE DESIGN */
+/* ============================= */
+
+/* Planshet (≤ 1024px) */
+@media (max-width: 1024px) {
+  .nav_contanier {
+    width: 90%;
+    padding: 0 10px;
+  }
+
+  .nav_center_ul {
+    gap: 20px;
+    font-size: 16px;
+  }
+
+  .lang-selector {
+    height: 45px;
+    padding: 5px 8px;
+  }
+
+  .nav_logo img {
+    height: 60%;
+    margin-top: -30px;
+  }
+}
+
+/* Mobil (≤ 768px) */
+@media (max-width: 768px) {
+  .navbar {
+    height: 80px;
+  }
+
+  .nav_contanier {
+    width: 95%;
+    padding: 0 10px;
+  }
+
+  /* Logo kichrayadi */
+  .nav_logo img {
+    height: 55%;
+    margin-top: -20px;
+  }
+
+  /* Desktop menyuni yashiramiz */
+  .nav_center {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #eee;
+    padding: 20px 0;
+    text-align: center;
+    display: none;
+    height: auto;
+    z-index: 49;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .nav_center.open {
+    display: block;
+  }
+
+  .nav_center_ul {
+    flex-direction: column;
+    gap: 18px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav_center_ul li {
+    margin: 0;
+  }
+
+  .nav_center_ul .link {
+    display: block;
+    padding: 10px 20px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .nav_center_ul .link:hover {
+    background-color: #f9f9f9;
+  }
+
+  /* Til dropdown joylashuvi */
+  .lang-dropdown {
+    top: 55px;
+    width: 95px;
+  }
+
+  /* Hamburger ko‘rinadi */
+  .nav_bars {
+    display: flex;
+  }
+}
+
+/* Kichik telefon (≤ 480px) */
+@media (max-width: 480px) {
+  .navbar {
+    height: 70px;
+  }
+
+  .nav_contanier {
+    width: 95%;
+    padding: 0 8px;
+  }
+
+  .lang-selector {
+    gap: 4px;
+    padding: 4px 6px;
+    height: 40px;
+    min-width: 70px;
+  }
+
+  .lang-code {
+    font-size: 13px;
+  }
+
+  .arrow_i {
+    font-size: 20px;
+  }
+
+  .flag-icon {
+    width: 20px;
+    height: 14px;
+  }
+
+  .lang-dropdown {
+    top: 50px;
+    width: 80px;
+  }
+
+  .nav_logo img {
+    height: 50%;
+    margin-top: -15px;
+  }
+
+  .nav_center {
+    top: 70px;
+  }
+
+  .nav_bars {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+}
+
+.ijara .icon{
+  font-size: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* mahsuscard */
+/* EKSport HAJMI KARTI */
+.export-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 18px 15px;
+  gap: 14px;
+  text-align: center;
+}
+
+.export-title {
+  font-family: Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #182640;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.export-values {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  justify-content: center;
+
+}
+
+.value-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.value-number {
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 36px;
+  color: #182640;
+  margin: 0;
+  line-height: 1;
+}
+
+.badge {
+  padding: 9px 14px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.linkk{
+  text-decoration: none;
+}
+.badge-plan {
+background-color: white;
+box-shadow: 1px 3px 11px 0px rgb(237, 235, 235);
+}
+
+.badge-actual {
+  background-color: white;
+  box-shadow: 1px 3px 11px 0px rgb(237, 235, 235);
+}
+/* mahsuscard */
