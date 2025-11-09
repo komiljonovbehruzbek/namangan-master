@@ -35,12 +35,7 @@ const UnicPage = () => {
         formattedLocation = formattedLocation.charAt(0).toUpperCase() + formattedLocation.slice(1);
 
         const res = await axios.get(
-          `https://qwertyuiop999.pythonanywhere.com/api/villages/view-mchj/?name=${encodeURIComponent(formattedLocation)}`,
-          {
-            headers: {
-              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjU2MjcyLCJpYXQiOjE3NjI2NDE4NzIsImp0aSI6IjdjZWMyNDJiY2NhYTQxZGViMDA3MzI4YmQ5ODVkNjcxIiwidXNlcl9pZCI6IjEifQ.n4AyY_Wqskb9gHTyTk8YkwNOEMM6KhcKQnSFchY49Dw"
-            }
-          }
+          `https://qwertyuiop999.pythonanywhere.com/api/villages/view-mchj/?name=${encodeURIComponent(formattedLocation)}`
         );
 
         if (!res.data || !Array.isArray(res.data)) {
@@ -87,12 +82,7 @@ const UnicPage = () => {
 
     try {
       await axios.delete(
-        `https://qwertyuiop999.pythonanywhere.com/api/villages/delete-mchj/${id}/`,
-        {
-          headers: {
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjU2MjcyLCJpYXQiOjE3NjI2NDE4NzIsImp0aSI6IjdjZWMyNDJiY2NhYTQxZGViMDA3MzI4YmQ5ODVkNjcxIiwidXNlcl9pZCI6IjEifQ.n4AyY_Wqskb9gHTyTk8YkwNOEMM6KhcKQnSFchY49Dw"
-          }
-        }
+        `https://qwertyuiop999.pythonanywhere.com/api/villages/delete-mchj/${id}/`
       );
 
       setMchjs(prev => prev.filter(item => item._id !== id));
