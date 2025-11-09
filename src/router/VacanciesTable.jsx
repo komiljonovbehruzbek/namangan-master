@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { FiEdit, FiTrash, FiX } from "react-icons/fi";
 
-function VacanciesTable() {
-  const initialData = [
-    {
-      id: 1,
-      name: "Поп миршикор МЧЖ",
-      count: "",
-      phone: "+99895 2247 22 22",
-      work: "Палпок ишлаб чиқариш",
-      quantity: "10",
-      salary: "1 000 000",
-      conditions: "автотранспорт харажатлари турар жой",
-    },
-  ];
+// ✅ initialData tashqarida, komponent darajasida
+const initialData = [
+  {
+    id: 1,
+    name: "Поп миршикор МЧЖ",
+    count: "",
+    phone: "+99895 2247 22 22",
+    work: "Палпок ишлаб чиқариш",
+    quantity: "10",
+    salary: "1 000 000",
+    conditions: "автотранспорт харажатлари турар жой",
+  },
+];
 
-  const [data, setData] = useState([]);
+function VacanciesTable() {
+  const [data, setData] = useState(initialData);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authData, setAuthData] = useState({ email: "", password: "" });
@@ -30,13 +31,12 @@ function VacanciesTable() {
     if (savedData && savedData.length > 0) {
       setData(savedData);
     } else {
-      setData(initialData);
       localStorage.setItem("vacanciesData", JSON.stringify(initialData));
     }
     if (savedAuth === "true") {
       setIsAuthenticated(true);
     }
-  }, [initialData]); // ✅ initialData dependency qo‘shildi
+  }, []); // ✅ dependency bo‘sh, initialData tashqarida
 
   const saveToLocalStorage = (newData) => {
     localStorage.setItem("vacanciesData", JSON.stringify(newData));
@@ -120,9 +120,7 @@ function VacanciesTable() {
     <div className="job_container">
       <h2 className="job_title">Мавжуд иш ўринлари</h2>
       <div className="plus">
-        <div className="job_plus_i" onClick={handleAddNew}>
-          +
-        </div>
+        <div className="job_plus_i" onClick={handleAddNew}>+</div>
       </div>
 
       {data.map((item) => (
@@ -140,14 +138,8 @@ function VacanciesTable() {
                   <div className="job_tel">
                     <p>Тел</p>
                     <div className="job_icons">
-                      <FiEdit
-                        className="job_icon edit"
-                        onClick={() => handleEdit(item)}
-                      />
-                      <FiTrash
-                        className="job_icon delete"
-                        onClick={() => handleDelete(item.id)}
-                      />
+                      <FiEdit className="job_icon edit" onClick={() => handleEdit(item)} />
+                      <FiTrash className="job_icon delete" onClick={() => handleDelete(item.id)} />
                     </div>
                   </div>
                 </th>
