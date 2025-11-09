@@ -19,7 +19,7 @@ function FormData() {
     const [loading, setLoading] = useState(true);
 
     const [districts, setDistricts] = useState([]);
-    const [districtsLoading, setDistrictsLoading] = useState(true);
+    const [, setDistrictsLoading] = useState(true);
 
     const [formValues, setFormValues] = useState({
         name: "",

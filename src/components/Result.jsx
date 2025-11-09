@@ -144,7 +144,7 @@ function Result() {
 
     // formatNumber funksiyasidan foydalanamiz
     const formatted = formatNumber(value);
-    const [mainValue, unit] = formatted.includes(" ")
+    const [mainValue] = formatted.includes(" ")
       ? formatted.split(" ")
       : [formatted, ""];
 

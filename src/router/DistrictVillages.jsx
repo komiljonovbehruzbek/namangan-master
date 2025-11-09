@@ -37,8 +37,8 @@ const DistrictVillages = () => {
     }
   }, []);
 
-  const getSectionOrder = (title) => ({ 'workplaces': 1, 'export': 2, 'production': 3 }[title] || 0);
-  const getSectionColor = (title) => ({ 'workplaces': '#3F8CFF', 'export': '#9C27B0', 'production': '#4CAF50' }[title] || '#3F8CFF');
+  // const getSectionOrder = (title) => ({ 'workplaces': 1, 'export': 2, 'production': 3 }[title] || 0);
+  // const getSectionColor = (title) => ({ 'workplaces': '#3F8CFF', 'export': '#9C27B0', 'production': '#4CAF50' }[title] || '#3F8CFF');
 
   // Qishloqlarni olish
   useEffect(() => {
