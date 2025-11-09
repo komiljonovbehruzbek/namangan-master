@@ -11,7 +11,7 @@ function VacanciesTable() {
       work: "Палпок ишлаб чиқариш",
       quantity: "10",
       salary: "1 000 000",
-      conditions: "автотранспорт ҳаражатлари турар жой",
+      conditions: "автотранспорт харажатлари турар жой",
     },
   ];
 
@@ -36,7 +36,7 @@ function VacanciesTable() {
     if (savedAuth === "true") {
       setIsAuthenticated(true);
     }
-  }, []);
+  }, [initialData]); // ✅ initialData dependency qo‘shildi
 
   const saveToLocalStorage = (newData) => {
     localStorage.setItem("vacanciesData", JSON.stringify(newData));
@@ -118,8 +118,6 @@ function VacanciesTable() {
 
   return (
     <div className="job_container">
-
-
       <h2 className="job_title">Мавжуд иш ўринлари</h2>
       <div className="plus">
         <div className="job_plus_i" onClick={handleAddNew}>
@@ -181,7 +179,9 @@ function VacanciesTable() {
         </div>
       ))}
 
-      <div className="job_pagination">1–{data.length} of {data.length}</div>
+      <div className="job_pagination">
+        1–{data.length} of {data.length}
+      </div>
 
       {/* Auth Modal */}
       {showAuthModal && (

@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import ArticlePage from './router/ArticlePage';
 import Home from './router/Home';
 import { Routes, Route } from "react-router-dom";
-import ProfileForm from './router/ProfileForm';
+// import ProfileForm from './router/ProfileForm';
 import VacanciesTable from "./router/VacanciesTable";
 import DistrictVillages from './router/DistrictVillages'; // Tumanlar ro'yxati
 import UnicPage from './router/UnicPage'; // Qishloq ichi MChJ
