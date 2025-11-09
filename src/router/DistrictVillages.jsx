@@ -37,8 +37,8 @@ const DistrictVillages = () => {
     }
   }, []);
 
-  // const getSectionOrder = (title) => ({ 'workplaces': 1, 'export': 2, 'production': 3 }[title] || 0);
-  // const getSectionColor = (title) => ({ 'workplaces': '#3F8CFF', 'export': '#9C27B0', 'production': '#4CAF50' }[title] || '#3F8CFF');
+  const getSectionOrder = (title) => ({ 'workplaces': 1, 'export': 2, 'production': 3 }[title] || 0);
+  const getSectionColor = (title) => ({ 'workplaces': '#3F8CFF', 'export': '#9C27B0', 'production': '#4CAF50' }[title] || '#3F8CFF');
 
   // Qishloqlarni olish
   useEffect(() => {
@@ -124,6 +124,7 @@ const DistrictVillages = () => {
       setSections(fallbackSections);
     }
   }, [qishloqlar.length]);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -258,6 +259,7 @@ const DistrictVillages = () => {
           </button>
         </div>
 
+
         <div className="result_bottom">
           {sections.length === 0 ? (
             <p>{t("no_data") || "Ma'lumot topilmadi"}</p>
@@ -365,6 +367,7 @@ const DistrictVillages = () => {
       )}
 
       <Statistika data={districtData} />
+
 
       {/* Qishloqlar */}
       <div className="swiper_all">

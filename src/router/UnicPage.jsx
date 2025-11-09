@@ -119,6 +119,7 @@ const UnicPage = () => {
     return item.loyiha_nomi || item.title || item.name || "Noma'lum MChJ";
   };
 
+
   if (loading) {
     return (
       <div className="container" style={{ textAlign: 'center', padding: '40px' }}>
@@ -217,6 +218,7 @@ const UnicPage = () => {
                       {item.location ? ` | Qishloq: ${item.location}` : ''}
                     </p>
                   </div>
+
 
                   {isAdmin && (
                     <div className="swiper_edit" style={{ position: 'relative' }}>

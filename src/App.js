@@ -12,6 +12,7 @@ import DistrictVillages from './router/DistrictVillages'; // Tumanlar ro'yxati
 import UnicPage from './router/UnicPage'; // Qishloq ichi MChJ
 import Contact from './router/Contact';
 import UniqueEdit from './router/UniqueEdit';
+import FormData from './router/FormData'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<ArticlePage />} />
+          <Route path='/formData' element={<FormData />} />
           <Route path='/uniquedit' element={<UniqueEdit />} />
           <Route path='/uniquedit/:id' element={<UniqueEdit />} />
           {/* <Route path='/add' element={<ProfileForm />} /> */}
