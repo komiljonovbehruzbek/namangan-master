@@ -1,4 +1,3 @@
-// pages/Result.jsx
 import React, { useState, useEffect } from "react";
 import "../router/Page.css";
 import result_icon_1 from "../assets/Frame.png";
@@ -38,8 +37,6 @@ function Result() {
     return colorMap[title] || '#3F8CFF';
   };
 
-  // pages/Result.jsx  (faqat o‘zgartirilgan qismlar ko‘rsatilgan)
-
   useEffect(() => {
     const saved = localStorage.getItem("userCredentials");
     if (saved) {
@@ -50,13 +47,13 @@ function Result() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await api.get("/statistics/global/");   // endpoint to‘g‘ri
+        const res = await api.get("/statistics/global/");   // endpoint to'g'ri
         const data = res.data;  // endi bitta obyekt
 
-        // 3 ta bo‘lim: Ish o‘rinlari, Eksport, Ishlab chiqarish
+        // 3 ta bo'lim: Ish o'rinlari, Eksport, Ishlab chiqarish
         const newSections = [
           {
-            title: "workplaces",           // Ish o‘rinlari
+            title: "workplaces",           // Ish o'rinlari
             plan: data.ish_urni_planned,
             actual: data.ish_urni_real,
             total: data.ish_urni_planned || 1,
@@ -77,11 +74,11 @@ function Result() {
             actual: data.current_volume_per_year_real,
             total: data.current_volume_per_year_planned || 1,
             color: getSectionColor("production"),
-            order: getSectionOrder("production"), 
+            order: getSectionOrder("production"),
           },
         ];
 
-        // Tartib bo‘yicha saralash
+        // Tartib bo'yicha saralash
         newSections.sort((a, b) => a.order - b.order);
 
         setSections(newSections);
@@ -128,13 +125,13 @@ function Result() {
 
     const absNum = Math.abs(num);
     if (absNum >= 1_000_000_000) {
-      return (num / 1_000_000_000).toFixed(1).replace(/\.0$/, "") + " mlrd";
+      return (num / 1_000_000_000).toFixed(1).replace(/\.0$/, "");
     }
     if (absNum >= 1_000_000) {
-      return (num / 1_000_000).toFixed(1).replace(/\.0$/, "") + " mln";
+      return (num / 1_000_000).toFixed(1).replace(/\.0$/, "");
     }
     if (absNum >= 1_000) {
-      return (num / 1_000).toFixed(1).replace(/\.0$/, "") + " ming";
+      return (num / 1_000).toFixed(1).replace(/\.0$/, "");
     }
     return num.toLocaleString();
   };
@@ -172,34 +169,18 @@ function Result() {
             }}
           />
 
-          {/* ASOSIY SON – katta */}
+          {/* ASOSIY SON – markazda */}
           <text
             x="55"
-            y="50"
+            y="55"
             textAnchor="middle"
             dominantBaseline="middle"
-            fontSize="18"
+            fontSize="16"
             fontWeight="700"
             fill={color}
           >
             {mainValue}
           </text>
-
-          {/* BIRLIK – kichik, pastda */}
-          {unit && (
-            <text
-              x="55"
-              y="68"
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fontSize="14"
-              fill={color}
-              opacity="0.85"
-              fontWeight="600"
-            >
-              {unit}
-            </text>
-          )}
         </svg>
         <span style={{ marginTop: "8px", fontSize: "14px" }}>{t(label)}</span>
       </div>

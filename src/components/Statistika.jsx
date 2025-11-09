@@ -29,13 +29,13 @@ function Statistika() {
     if (!num) return "0";
     const absNum = Math.abs(num);
     if (absNum >= 1_000_000_000) {
-      return (num / 1_000_000_000).toFixed(1).replace(/\.0$/, "") + " mlrd";
+      return (num / 1_000_000_000).toFixed(1).replace(/\.0$/, "");
     }
     if (absNum >= 1_000_000) {
-      return (num / 1_000_000).toFixed(1).replace(/\.0$/, "") + " mln";
+      return (num / 1_000_000).toFixed(1).replace(/\.0$/, "");
     }
     if (absNum >= 1_000) {
-      return (num / 1_000).toFixed(1).replace(/\.0$/, "") + " ming";
+      return (num / 1_000).toFixed(1).replace(/\.0$/, "");
     }
     return num.toString();
   };
