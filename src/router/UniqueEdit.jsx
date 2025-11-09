@@ -2,9 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import './UniqueEdit.css';
 import { FiUpload, FiEdit } from "react-icons/fi";
 import { LuImage } from "react-icons/lu";
-import api from "../axios";
-import { useParams } from "react-router-dom";
 import axios from 'axios';
+import { useParams } from "react-router-dom";
 
 function UniqueEdit() {
     const { id } = useParams();
@@ -21,32 +20,30 @@ function UniqueEdit() {
     const [loading, setLoading] = useState(true);
 
     const [formValues, setFormValues] = useState({
-        city: "",
-        zone: "",
-        stir: "",
+        sanoat_zona: "",
+        STIR: "",
         cost: "",
         credit: "",
-        created_positions: "",
-        export_plan: "",
-        export_actual: "",
-        status: "",
-        ozlashtirilgan: "",
-        launch_year: "",
-        launch_month: "",
-        placement_year: "",
-        placement_month: "",
-        name: "",
-        ksz_name: "",
-        initiator: "",
+        ish_urni_planned: "",
+        ish_urni_real: "",
+        export_volume_planned: "",
+        export_volume_real: "",
+        loyiha_holati: "",
+        ozlashtirilgan_mublag: "",
+        start_date: "",
+        ksz_placement_date: "",
+        loyiha_nomi: "",
+        ksz_nomi: "",
+        tashabbuskori: "",
         land: "",
         uz_mablagi: "",
-        foreign_invest: "",
-        bank: "",
-        current_volume: "",
-        import_volume: "",
-        current_volume_2: "",
-        launch_year_2: "",
-        launch_month_2: ""
+        foreign_investments: "",
+        hizmat_bank: "",
+        current_volume_per_year_planned: "",
+        current_volume_per_year_real: "",
+        current_volume_per_month: "",
+        current_import_volume_per_year: "",
+        reduced_cost: ""
     });
 
     const fileInputRef = useRef(null);
@@ -62,9 +59,7 @@ function UniqueEdit() {
                 const now = Date.now();
                 const oneHour = 60 * 60 * 1000;
 
-                if (email === "admin@gmail.com" &&
-                    password === "admin" &&
-                    now - parseInt(loginTime) < oneHour) {
+                if (email === "admin@gmail.com" && password === "admin" && now - parseInt(loginTime) < oneHour) {
                     setIsAdmin(true);
                     setIsEditable(true);
                 } else {
@@ -82,69 +77,51 @@ function UniqueEdit() {
         return () => clearInterval(interval);
     }, []);
 
-    // MChJ ma'lumotlarini yuklash - HAR QANDAY HOLATDA (admin bo'lmasa ham)
+    // MChJ ma'lumotlarini yuklash
     useEffect(() => {
         const fetchMchjData = async () => {
             if (!id) {
-                console.log("MChJ ID si topilmadi");
+                setMessage("MChJ ID topilmadi");
                 setLoading(false);
                 return;
             }
 
             try {
                 setLoading(true);
-                console.log("MChJ ma'lumotlarini yuklash uchun so'rov yuborilmoqda...");
+                const res = await axios.get(`https://qwertyuiop999.pythonanywhere.com/api/mchj/${id}/`);
+                const data = res.data;
 
-                // To'g'ri endpoint - barcha MChJ lar ro'yxatidan ID bo'yicha qidirish
-                const res = await axios.get(`https://qwertyuiop999.pythonanywhere.com/api/villages/view-mchj/`);
+                setMchjData(data);
 
-                if (res.data && Array.isArray(res.data)) {
-                    // ID bo'yicha MChJ ni topish
-                    const foundMchj = res.data.find(item => item._id === id || item.id === id);
-
-                    if (foundMchj) {
-                        console.log("Topilgan MChJ:", foundMchj);
-                        setMchjData(foundMchj);
-
-                        // FormValues ni to'ldirish
-                        setFormValues({
-                            city: foundMchj.city || foundMchj.district || "",
-                            zone: foundMchj.zone || "",
-                            stir: foundMchj.stir || foundMchj.STIR || "",
-                            cost: foundMchj.cost || "",
-                            credit: foundMchj.credit || "",
-                            created_positions: foundMchj.created_positions || "",
-                            export_plan: foundMchj.export_plan || foundMchj.export_volume_planned || "",
-                            export_actual: foundMchj.export_actual || foundMchj.export_volume_real || "",
-                            status: foundMchj.status || "",
-                            ozlashtirilgan: foundMchj.ozlashtirilgan || foundMchj.ozlashtirilgan_mublag || "",
-                            launch_year: foundMchj.launch_year || "",
-                            launch_month: foundMchj.launch_month || "",
-                            placement_year: foundMchj.placement_year || "",
-                            placement_month: foundMchj.placement_month || "",
-                            name: foundMchj.name || foundMchj.title || "",
-                            ksz_name: foundMchj.ksz_name || "",
-                            initiator: foundMchj.initiator || "",
-                            land: foundMchj.land || "",
-                            uz_mablagi: foundMchj.uz_mablagi || "",
-                            foreign_invest: foundMchj.foreign_invest || foundMchj.foreign_investments || "",
-                            bank: foundMchj.bank || "",
-                            current_volume: foundMchj.current_volume || foundMchj.current_volume_per_year_real || "",
-                            import_volume: foundMchj.import_volume || foundMchj.current_import_volume_per_year || "",
-                            current_volume_2: foundMchj.current_volume_2 || foundMchj.current_volume_per_year_real || "",
-                            launch_year_2: foundMchj.launch_year_2 || "",
-                            launch_month_2: foundMchj.launch_month_2 || ""
-                        });
-                    } else {
-                        throw new Error(`MChJ topilmadi (ID: ${id})`);
-                    }
-                } else {
-                    throw new Error("API dan noto'g'ri formatda ma'lumot qaytardi");
-                }
+                setFormValues({
+                    sanoat_zona: data.sanoat_zona || "",
+                    STIR: data.STIR || "",
+                    cost: data.cost || "",
+                    credit: data.credit || "",
+                    ish_urni_planned: data.ish_urni_planned || "",
+                    ish_urni_real: data.ish_urni_real || "",
+                    export_volume_planned: data.export_volume_planned || "",
+                    export_volume_real: data.export_volume_real || "",
+                    loyiha_holati: data.loyiha_holati || "",
+                    ozlashtirilgan_mublag: data.ozlashtirilgan_mublag || "",
+                    start_date: data.start_date || "",
+                    ksz_placement_date: data.ksz_placement_date || "",
+                    loyiha_nomi: data.loyiha_nomi || "",
+                    ksz_nomi: data.ksz_nomi || "",
+                    tashabbuskori: data.tashabbuskori || "",
+                    land: data.land || "",
+                    uz_mablagi: data.uz_mablagi || "",
+                    foreign_investments: data.foreign_investments || "",
+                    hizmat_bank: data.hizmat_bank || "",
+                    current_volume_per_year_planned: data.current_volume_per_year_planned || "",
+                    current_volume_per_year_real: data.current_volume_per_year_real || "",
+                    current_volume_per_month: data.current_volume_per_month || "",
+                    current_import_volume_per_year: data.current_import_volume_per_year || "",
+                    reduced_cost: data.reduced_cost || ""
+                });
             } catch (err) {
-                console.error("MChJ ma'lumotlari yuklanmadi:", err);
-                // Xatoni ko'rsatish, lekin sahifani to'liq bloklamaslik
-                setMessage(`MChJ ma'lumotlari yuklanmadi: ${err.message}`);
+                console.error(err);
+                setMessage(`Ma'lumot yuklanmadi: ${err.response?.data?.detail || err.message}`);
                 setMessageType("error");
             } finally {
                 setLoading(false);
@@ -196,20 +173,18 @@ function UniqueEdit() {
             setMessage("Hush kelibsiz Admin!");
             setMessageType("success");
 
-            // Admin kirgandan so'ng ma'lumotlarni qayta yuklash
             setTimeout(() => {
-                window.location.reload();
+                setIsModalOpen(false);
+                setLoginFormData({ email: "", password: "" });
+                setIsSubmitting(false);
             }, 1500);
         } else {
             setMessage("Noto'g'ri email yoki parol!");
             setMessageType("error");
+            setTimeout(() => {
+                setIsSubmitting(false);
+            }, 1500);
         }
-
-        setTimeout(() => {
-            setIsModalOpen(false);
-            setLoginFormData({ email: "", password: "" });
-            setIsSubmitting(false);
-        }, 2000);
     };
 
     const openEditModal = () => {
@@ -220,24 +195,20 @@ function UniqueEdit() {
 
     const handleSave = async () => {
         if (!isEditable || !id) {
-            alert("MChJ ID topilmadi yoki ruxsat yo'q!");
+            alert("Ruxsat yo'q yoki ID topilmadi!");
             return;
         }
 
         try {
             setIsSubmitting(true);
-            await api.put(`/villages/update-mchj/${id}/`, formValues);
-            alert("Ma'lumotlar muvaffaqiyatli saqlandi!");
+            await axios.patch(`https://qwertyuiop999.pythonanywhere.com/api/mchj/${id}/`, formValues);
+            alert("Ma'lumotlar muvaffaqiyatli yangilandi!");
 
-            // Saqlagandan so'ng yangi ma'lumotlarni yuklash
-            const res = await axios.get(`https://qwertyuiop999.pythonanywhere.com/api/villages/view-mchj/`);
-            const updatedMchj = res.data.find(item => item._id === id || item.id === id);
-            if (updatedMchj) {
-                setMchjData(updatedMchj);
-            }
+            const res = await axios.get(`https://qwertyuiop999.pythonanywhere.com/api/mchj/${id}/`);
+            setMchjData(res.data);
         } catch (err) {
             console.error("Saqlashda xato:", err);
-            alert("Saqlashda xato yuz berdi!");
+            alert("Saqlashda xato: " + (err.response?.data?.detail || err.message));
         } finally {
             setIsSubmitting(false);
         }
@@ -257,7 +228,6 @@ function UniqueEdit() {
     return (
         <div className='uniqueEdit'>
             <div className="container">
-                {/* Xabar ko'rsatish */}
                 {message && (
                     <div style={{
                         margin: "20px 0",
@@ -280,10 +250,7 @@ function UniqueEdit() {
                         <div
                             className="photo-box"
                             onClick={handleImageClick}
-                            style={{
-                                cursor: isEditable ? 'pointer' : 'not-allowed',
-                                opacity: isEditable ? 1 : 0.7
-                            }}
+                            style={{ cursor: isEditable ? 'pointer' : 'not-allowed', opacity: isEditable ? 1 : 0.7 }}
                         >
                             {imagePreview ? (
                                 <img src={imagePreview} alt="Preview" className="preview-image" />
@@ -291,414 +258,105 @@ function UniqueEdit() {
                                 <img src={mchjData.image} alt="MChJ" className="preview-image" />
                             ) : (
                                 <>
-                                    <div className="upload-icon-div">
-                                        <FiUpload className="upload-icon" />
-                                    </div>
-                                    <p className="upload-text">
-                                        Расмларингизни юклаш учун шуерни босинг
-                                    </p>
+                                    <div className="upload-icon-div"><FiUpload className="upload-icon" /></div>
+                                    <p className="upload-text">Расмларингизни юклаш учун шуерни босинг</p>
                                     <span className="upload-types">Jpg, Png, Svg.</span>
                                 </>
                             )}
-                            <input
-                                type="file"
-                                ref={fileInputRef}
-                                style={{ display: "none" }}
-                                accept="image/*"
-                                onChange={handleImageChange}
-                                disabled={!isEditable}
-                            />
-                            <button
-                                type="button"
-                                className="upload-btn"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    if (isEditable) handleImageClick();
-                                }}
-                                style={{ cursor: isEditable ? 'pointer' : 'not-allowed' }}
-                                disabled={!isEditable}
-                            >
-                                <LuImage />
-                                Сурат юклаш
+                            <input type="file" ref={fileInputRef} style={{ display: "none" }} accept="image/*" onChange={handleImageChange} disabled={!isEditable} />
+                            <button type="button" className="upload-btn" onClick={(e) => { e.stopPropagation(); if (isEditable) handleImageClick(); }} disabled={!isEditable}>
+                                <LuImage /> Сурат юклаш
                             </button>
                         </div>
                     </div>
 
-                    {!isAdmin && (
-                        <button
-                            className='edit-btn'
-                            onClick={openEditModal}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <FiEdit fontSize={20} />
-                            Маълумотларни таҳрирлаш
-                        </button>
-                    )}
+                    <button className='edit-btn' onClick={openEditModal} style={{ cursor: 'pointer' }}>
+                        <FiEdit fontSize={20} /> Маълумотларни таҳрирлаш
+                    </button>
                 </div>
 
                 <div className="form-div">
                     <h2 className="photo-section-title">Умумий маълумот</h2>
 
-                    {/* MChJ asosiy ma'lumotlari */}
-                    {mchjData && (
-                        <div style={{
-                            backgroundColor: '#f8f9fa',
-                            padding: '20px',
-                            borderRadius: '10px',
-                            marginBottom: '20px',
-                            border: '1px solid #dee2e6'
-                        }}>
-                            <h3 style={{ marginBottom: '15px', color: '#333' }}>MChJ Asosiy Ma'lumotlari</h3>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                                <p><strong>Nomi:</strong> {mchjData.title || mchjData.name}</p>
-                                <p><strong>Tuman:</strong> {mchjData.district}</p>
-                                <p><strong>Qishloq:</strong> {mchjData.location}</p>
-                                <p><strong>Tavsif:</strong> {mchjData.desc || mchjData.description}</p>
-                            </div>
-                        </div>
-                    )}
-
                     <form className='form'>
                         <div className="form-left">
-                            <label>
-                                <p className='input-title'>Шаҳар-туман номи</p>
-                                <select
-                                    className='input'
-                                    name="city"
-                                    value={formValues.city}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                >
-                                    <option value="">Танланг</option>
-                                    <option value="Наманган шаҳри">Наманган шаҳри</option>
-                                    <option value="Поп тумани">Поп тумани</option>
-                                </select>
+                            <label><p className='input-title'>Саноат зона</p>
+                                <input type="text" className='input' name="sanoat_zona" value={formValues.sanoat_zona} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>Саноат зона</p>
-                                <input
-                                    placeholder='КСЗ'
-                                    type="text"
-                                    className='input'
-                                    name="zone"
-                                    value={formValues.zone}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>СТИР</p>
+                                <input type="number" className='input' name="STIR" value={formValues.STIR} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>СТИР</p>
-                                <input
-                                    placeholder='306709076'
-                                    type="number"
-                                    className='input'
-                                    name="stir"
-                                    value={formValues.stir}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Лойиҳа умумий қиймати (млн. сўм)</p>
+                                <input type="number" className='input' name="cost" value={formValues.cost} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>Лойиҳа умумий қиймати (млн. сўм)</p>
-                                <input
-                                    placeholder='15750'
-                                    type="number"
-                                    className='input'
-                                    name="cost"
-                                    value={formValues.cost}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Банк кредити (млн. сўм)</p>
+                                <input type="number" className='input' name="credit" value={formValues.credit} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>Банк кредити (млн. сўм)</p>
-                                <input
-                                    placeholder='7500'
-                                    type="number"
-                                    className='input'
-                                    name="credit"
-                                    value={formValues.credit}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Иш ўринлари (режали)</p>
+                                <input type="number" className='input' name="ish_urni_planned" value={formValues.ish_urni_planned} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>Яратиладиган иш ўрни</p>
-                                <input
-                                    placeholder='100'
-                                    type="number"
-                                    className='input'
-                                    name="created_positions"
-                                    value={formValues.created_positions}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Иш ўринлари (амалда)</p>
+                                <input type="number" className='input' name="ish_urni_real" value={formValues.ish_urni_real} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label className='plan-div'>
-                                <p className="input-title">Жорий йилда амалга оширилган экспорт хажми (минг. долл)</p>
+                            <label className='plan-div'><p className="input-title">Экспорт ҳажми (минг долл)</p>
                                 <div className="reja_amal">
-                                    <label className='reja'>
-                                        <p className='input-title'>режа</p>
-                                        <input
-                                            placeholder='2021'
-                                            type="number"
-                                            className="input"
-                                            name="export_plan"
-                                            value={formValues.export_plan}
-                                            onChange={handleFormInputChange}
-                                            disabled={!isEditable}
-                                        />
+                                    <label className='reja'><p className='input-title'>режа</p>
+                                        <input type="number" className="input" name="export_volume_planned" value={formValues.export_volume_planned} onChange={handleFormInputChange} disabled={!isEditable} />
                                     </label>
-                                    <label className='reja'>
-                                        <p className='input-title'>амалда</p>
-                                        <input
-                                            placeholder='01'
-                                            type="number"
-                                            className="input"
-                                            name="export_actual"
-                                            value={formValues.export_actual}
-                                            onChange={handleFormInputChange}
-                                            disabled={!isEditable}
-                                        />
+                                    <label className='reja'><p className='input-title'>амалда</p>
+                                        <input type="number" className="input" name="export_volume_real" value={formValues.export_volume_real} onChange={handleFormInputChange} disabled={!isEditable} />
                                     </label>
                                 </div>
                             </label>
-                            <label>
-                                <p className='input-title'>Лойиҳа ҳолати (Амалга оширилмоқда / Ишга тушган)</p>
-                                <input
-                                    placeholder='Амалга оширилмоқда'
-                                    type="text"
-                                    className='input'
-                                    name="status"
-                                    value={formValues.status}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Лойиҳа ҳолати</p>
+                                <input type="text" className='input' name="loyiha_holati" value={formValues.loyiha_holati} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>Шундан: Лойиҳа бўйича 2025 йилда ўзлаштирилган маблағ (млн сўм)</p>
-                                <input
-                                    placeholder='80'
-                                    type="number"
-                                    className='input'
-                                    name="ozlashtirilgan"
-                                    value={formValues.ozlashtirilgan}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Ўзлаштирилган маблағ (млн сўм)</p>
+                                <input type="number" className='input' name="ozlashtirilgan_mublag" value={formValues.ozlashtirilgan_mublag} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label className='plan-div'>
-                                <p className="photo-section-title">Ишга тушиш муддати</p>
-                                <div className="reja_amal">
-                                    <label className='reja'>
-                                        <p className='input-title'>йил</p>
-                                        <input
-                                            placeholder='2021'
-                                            type="number"
-                                            className="input"
-                                            name="launch_year"
-                                            value={formValues.launch_year}
-                                            onChange={handleFormInputChange}
-                                            disabled={!isEditable}
-                                        />
-                                    </label>
-                                    <label className='reja'>
-                                        <p className='input-title'>ой</p>
-                                        <input
-                                            placeholder='01'
-                                            type="number"
-                                            className="input"
-                                            name="launch_month"
-                                            value={formValues.launch_month}
-                                            onChange={handleFormInputChange}
-                                            disabled={!isEditable}
-                                        />
-                                    </label>
-                                </div>
+                            <label><p className='input-title'>Ишга тушиш санаси</p>
+                                <input type="text" className='input' name="start_date" value={formValues.start_date} onChange={handleFormInputChange} disabled={!isEditable} placeholder="2024-03-01" />
                             </label>
-                            <label className='plan-div'>
-                                <p className="photo-section-title">КСЗга ҳудудига жойлаштирилган вақти</p>
-                                <div className="reja_amal">
-                                    <label className='reja'>
-                                        <p className='input-title'>йил</p>
-                                        <input
-                                            placeholder='2019'
-                                            type="number"
-                                            className="input"
-                                            name="placement_year"
-                                            value={formValues.placement_year}
-                                            onChange={handleFormInputChange}
-                                            disabled={!isEditable}
-                                        />
-                                    </label>
-                                    <label className='reja'>
-                                        <p className='input-title'>ой</p>
-                                        <input
-                                            placeholder='09'
-                                            type="number"
-                                            className="input"
-                                            name="placement_month"
-                                            value={formValues.placement_month}
-                                            onChange={handleFormInputChange}
-                                            disabled={!isEditable}
-                                        />
-                                    </label>
-                                </div>
+                            <label><p className='input-title'>КСЗга жойлаштирилган сана</p>
+                                <input type="text" className='input' name="ksz_placement_date" value={formValues.ksz_placement_date} onChange={handleFormInputChange} disabled={!isEditable} placeholder="2024-04-10" />
                             </label>
                         </div>
 
                         <div className="form-right">
-                            <label>
-                                <p className='input-title'>Лойиҳа номи</p>
-                                <input
-                                    placeholder='Сутни қайта ишлаш ва кондитер махсулотларини ишлаб чиқариш'
-                                    type="text"
-                                    className='input'
-                                    name="name"
-                                    value={formValues.name}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Лойиҳа номи</p>
+                                <input type="text" className='input' name="loyiha_nomi" value={formValues.loyiha_nomi} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>КСЗ номи</p>
-                                <input
-                                    placeholder='Даштбоғ КСЗ'
-                                    type="text"
-                                    className='input'
-                                    name="ksz_name"
-                                    value={formValues.ksz_name}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>КСЗ номи</p>
+                                <input type="text" className='input' name="ksz_nomi" value={formValues.ksz_nomi} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>Лойиҳа ташаббускори</p>
-                                <input
-                                    placeholder='"VODIY CANDY MILK" MЧЖ'
-                                    type="text"
-                                    className='input'
-                                    name="initiator"
-                                    value={formValues.initiator}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Лойиҳа ташаббускори</p>
+                                <input type="text" className='input' name="tashabbuskori" value={formValues.tashabbuskori} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>Ажратилган ер майдони (га)</p>
-                                <input
-                                    placeholder='0.15'
-                                    type="number"
-                                    className='input'
-                                    name="land"
-                                    value={formValues.land}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Ажратилган ер майдони (га)</p>
+                                <input type="number" step="0.01" className='input' name="land" value={formValues.land} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>ўз маблағи (млн. сўм)</p>
-                                <input
-                                    placeholder='8250'
-                                    type="number"
-                                    className='input'
-                                    name="uz_mablagi"
-                                    value={formValues.uz_mablagi}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Ўз маблағи (млн. сўм)</p>
+                                <input type="number" className='input' name="uz_mablagi" value={formValues.uz_mablagi} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>чет эл инвестицияси (минг долл.)</p>
-                                <input
-                                    placeholder='1'
-                                    type="number"
-                                    className='input'
-                                    name="foreign_invest"
-                                    value={formValues.foreign_invest}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Чет эл инвестицияси (минг долл.)</p>
+                                <input type="number" className='input' name="foreign_investments" value={formValues.foreign_investments} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>Хизмат кўрсатувчи банк</p>
-                                <input
-                                    placeholder='"МИКРОКРЕДИТБАНК" АТ БАНКИ'
-                                    type="text"
-                                    className='input'
-                                    name="bank"
-                                    value={formValues.bank}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Хизмат кўрсатувчи банк</p>
+                                <input type="text" className='input' name="hizmat_bank" value={formValues.hizmat_bank} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>Жорий йилда амалда ишлаб чиқарилган хажм (млн. сўм)</p>
-                                <input
-                                    placeholder='3100'
-                                    type="number"
-                                    className='input'
-                                    name="current_volume"
-                                    value={formValues.current_volume}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Йиллик ишлаб чиқариш (режали)</p>
+                                <input type="number" className='input' name="current_volume_per_year_planned" value={formValues.current_volume_per_year_planned} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label>
-                                <p className='input-title'>Жорий йилда амалга оширилган импорт хажми (минг. долл)</p>
-                                <input
-                                    placeholder='2'
-                                    type="number"
-                                    className='input'
-                                    name="import_volume"
-                                    value={formValues.import_volume}
-                                    onChange={handleFormInputChange}
-                                    disabled={!isEditable}
-                                />
+                            <label><p className='input-title'>Йиллик ишлаб чиқариш (амалда)</p>
+                                <input type="number" className='input' name="current_volume_per_year_real" value={formValues.current_volume_per_year_real} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
-                            <label className='plan-div'>
-                                <p className="photo-section-title">Ишга тушиш вақти</p>
-                                <div className="reja_amal">
-                                    <label className='reja'>
-                                        <p className='input-title'>йил</p>
-                                        <input
-                                            placeholder='2021'
-                                            type="number"
-                                            className="input"
-                                            name="launch_year_2"
-                                            value={formValues.launch_year_2}
-                                            onChange={handleFormInputChange}
-                                            disabled={!isEditable}
-                                        />
-                                    </label>
-                                    <label className='reja'>
-                                        <p className='input-title'>ой</p>
-                                        <input
-                                            placeholder='01'
-                                            type="number"
-                                            className="input"
-                                            name="launch_month_2"
-                                            value={formValues.launch_month_2}
-                                            onChange={handleFormInputChange}
-                                            disabled={!isEditable}
-                                        />
-                                    </label>
-                                </div>
+                            <label><p className='input-title'>Импорт хажми (минг долл.)</p>
+                                <input type="number" className='input' name="current_import_volume_per_year" value={formValues.current_import_volume_per_year} onChange={handleFormInputChange} disabled={!isEditable} />
                             </label>
 
-                            {/* Saqlash tugmasi faqat admin uchun */}
                             {isAdmin && (
                                 <div className="edit-btn-div">
-                                    <button
-                                        className='edit-btn'
-                                        type="button"
-                                        onClick={handleSave}
-                                        style={{
-                                            cursor: isEditable ? 'pointer' : 'not-allowed',
-                                            opacity: isEditable ? 1 : 0.6
-                                        }}
-                                        disabled={!isEditable || isSubmitting}
-                                    >
+                                    <button className='edit-btn' type="button" onClick={handleSave} disabled={isSubmitting}>
                                         <FiEdit fontSize={20} />
                                         {isSubmitting ? "Сақланилмоқда..." : "Маълумотларни сақлаш"}
                                     </button>
@@ -707,17 +365,16 @@ function UniqueEdit() {
                         </div>
                     </form>
                 </div>
-            </div>
 
-            {isModalOpen && (
-                <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="modal-close" onClick={() => setIsModalOpen(false)}>X</button>
-                        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Админ кириш</h2>
+                {/* Admin Login Modal */}
+                {isModalOpen && (
+                    <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+                        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                            <button className="modal-close" onClick={() => setIsModalOpen(false)}>X</button>
+                            <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Админ кириш</h2>
 
-                        {message && (
-                            <div
-                                style={{
+                            {message && (
+                                <div style={{
                                     margin: "0 0 20px",
                                     padding: "19px 18px",
                                     borderRadius: "10px",
@@ -727,52 +384,28 @@ function UniqueEdit() {
                                     backgroundColor: messageType === "success" ? "#d4edda" : "#f8d7da",
                                     color: messageType === "success" ? "#155724" : "#721c24",
                                     border: `1px solid ${messageType === "success" ? "#c3e6cb" : "#f5c6cb"}`,
-                                }}
-                            >
-                                {message}
-                            </div>
-                        )}
+                                }}>
+                                    {message}
+                                </div>
+                            )}
 
-                        <form onSubmit={handleLoginSubmit} className="modal-form">
-                            <div className="form-group">
-                                <label>Email</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={loginFormData.email}
-                                    onChange={handleLoginInputChange}
-                                    required
-                                    placeholder="admin@gmail.com"
-                                    disabled={isSubmitting}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Parol</label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value={loginFormData.password}
-                                    onChange={handleLoginInputChange}
-                                    required
-                                    placeholder="admin"
-                                    disabled={isSubmitting}
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                className="modal-submit-btn"
-                                disabled={isSubmitting}
-                                style={{
-                                    backgroundColor: isSubmitting ? "#ccc" : "#3F8CFF",
-                                    cursor: isSubmitting ? "not-allowed" : "pointer",
-                                }}
-                            >
-                                {isSubmitting ? "Tekshirilmoqda..." : "Kirish"}
-                            </button>
-                        </form>
+                            <form onSubmit={handleLoginSubmit} className="modal-form">
+                                <div className="form-group">
+                                    <label>Email</label>
+                                    <input type="email" name="email" value={loginFormData.email} onChange={handleLoginInputChange} required placeholder="admin@gmail.com" disabled={isSubmitting} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Parol</label>
+                                    <input type="password" name="password" value={loginFormData.password} onChange={handleLoginInputChange} required placeholder="admin" disabled={isSubmitting} />
+                                </div>
+                                <button type="submit" className="modal-submit-btn" disabled={isSubmitting}>
+                                    {isSubmitting ? "Tekshirilmoqda..." : "Kirish"}
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 }

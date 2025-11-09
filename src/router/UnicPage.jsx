@@ -38,6 +38,8 @@ const UnicPage = () => {
           `https://qwertyuiop999.pythonanywhere.com/api/villages/view-mchj/?name=${encodeURIComponent(formattedLocation)}`
         );
 
+        console.log("API dan kelgan ma'lumot:", res.data); // Debug uchun
+
         if (!res.data || !Array.isArray(res.data)) {
           throw new Error("API dan to'g'ri formatda ma'lumot olinmadi");
         }
@@ -106,6 +108,15 @@ const UnicPage = () => {
 
   const handleHome = () => {
     navigate('/');
+  };
+
+  // API dan kelgan ma'lumot strukturasini tekshirish funksiyasi
+  const getMchjName = (item) => {
+    return item.tashabbuskori || item.sanoat_zona || item.desc || item.description || "Izoh yo'q";
+  };
+
+  const getMchjDescription = (item) => {
+    return item.loyiha_nomi || item.title || item.name || "Noma'lum MChJ";
   };
 
   if (loading) {
@@ -191,16 +202,16 @@ const UnicPage = () => {
                   <div
                     className="swiper_text"
                     onClick={() => {
-                      if (item._id) {
-                        navigate(`/uniquedit/${item._id}`);
+                      if (item.id) {
+                        navigate(`/uniquedit/${item.id}`);
                       } else {
                         alert("MChJ ID si topilmadi!");
                       }
                     }}
                     style={{ cursor: 'pointer' }}
                   >
-                    <h2>{item.title || item.name || "Noma'lum MChJ"}</h2>
-                    <h6>{item.desc || item.description || "Izoh yo'q"}</h6>
+                    <h2>{getMchjName(item)}</h2>
+                    <h6>{getMchjDescription(item)}</h6>
                     <p style={{ color: '#666', fontSize: '14px', marginTop: '8px' }}>
                       {item.district ? `Tuman: ${item.district}` : ''}
                       {item.location ? ` | Qishloq: ${item.location}` : ''}

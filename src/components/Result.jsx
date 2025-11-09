@@ -77,7 +77,7 @@ function Result() {
             actual: data.current_volume_per_year_real,
             total: data.current_volume_per_year_planned || 1,
             color: getSectionColor("production"),
-            order: getSectionOrder("production"),
+            order: getSectionOrder("production"), 
           },
         ];
 
